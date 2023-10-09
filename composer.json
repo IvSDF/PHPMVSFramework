@@ -1,0 +1,15 @@
+{
+    "name": "root/phpmvs-frame",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ivan",
+            "email": "demchyshyn@devonyx.tach"
+        }
+    ],
+    "require": {}
+}

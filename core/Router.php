@@ -7,15 +7,15 @@ use app\controllers\SiteController;
 class Router
 {
     public Request $request;
-    public Response $response;
+    public Respons $response;
     protected array $routs = [];
 
 
     /**
      * @param Request $request
-     * @param Response $response
+     * @param Respons $response
      */
-    public function __construct(Request $request, Response $response)
+    public function __construct(Request $request, Respons $response)
     {
         $this->request = $request;
         $this->response = $response;
@@ -47,15 +47,17 @@ class Router
             return $this->renderView($callback);
         }
 
-        $controller = new $callback[0];
+        if (is_array($callback)) {
+            $callback[0] = new $callback[0]();
+        }
 
-        return $controller->{$callback[1]}();
+        return call_user_func($callback);
     }
 
-    private function renderView($view)
+    public function renderView($view, $params = [])
     {
         $layoutsContact = $this->layoutsContent();
-        $viewContact = $this->renderOnlyView($view);
+        $viewContact = $this->renderOnlyView($view, $params);
         return str_replace('{{content}}', $viewContact, $layoutsContact);
     }
 
@@ -72,8 +74,11 @@ class Router
         return ob_get_clean();
     }
 
-    protected function renderOnlyView($view)
+    protected function renderOnlyView($view, $params)
     {
+        foreach ($params as $key => $value) {
+            $$key = $value;
+        }
         ob_start();
         include_once Application::$ROOT_DIR."/views/$view.php";
         return ob_get_clean();

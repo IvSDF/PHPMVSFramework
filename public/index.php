@@ -2,17 +2,15 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+use app\controllers\SiteController;
+use app\controllers\StartController;
 use app\core\Application;
 
+$app = new Application(dirname(__DIR__));
 
-$app = new Application();
+$app->router->get('/', 'home');
 
-$app->router->get('/', function (){
-    return 'Hello world';
-});
-
-$app->router->get('/contact', function (){
-    return 'All contacts in the world';
-});
+$app->router->get('/contact', 'contact');
+$app->router->post('/contact', [SiteController::class, 'contact']);
 
 $app->run();

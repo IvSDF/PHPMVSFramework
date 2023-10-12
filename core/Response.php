@@ -2,7 +2,7 @@
 
 namespace app\core;
 
-class Respons
+class Response
 {
     public function setStatusCode(int $code)
     {

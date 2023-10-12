@@ -7,15 +7,15 @@ use app\controllers\SiteController;
 class Router
 {
     public Request $request;
-    public Respons $response;
+    public Response $response;
     protected array $routs = [];
 
 
     /**
      * @param Request $request
-     * @param Respons $response
+     * @param Response $response
      */
-    public function __construct(Request $request, Respons $response)
+    public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
@@ -72,7 +72,7 @@ class Router
     {
         $layout = Application::$app->controller->layout;
         ob_start();
-        include_once Application::$ROOT_DIR."/views/layouts/$layout.php";
+        include_once Application::$ROOT_DIR . "/views/layouts/$layout.php";
         return ob_get_clean();
     }
 
@@ -82,7 +82,7 @@ class Router
             $$key = $value;
         }
         ob_start();
-        include_once Application::$ROOT_DIR."/views/$view.php";
+        include_once Application::$ROOT_DIR . "/views/$view.php";
         return ob_get_clean();
 
     }
